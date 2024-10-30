@@ -43,7 +43,7 @@ namespace KSTDotNetCoreTraining.ConsoleApp
       ,[BlogContent]
       ,[DeleteFlag]
   FROM [dbo].[Tbl_Blog]";
-                var lst = db.Query<BlogDataModel>(query).ToList();
+                var lst = db.Query<BlogDataDapperModel>(query).ToList();
                 foreach (var item in lst)
                 {
                     Console.WriteLine(item.BlogID);
@@ -68,7 +68,7 @@ namespace KSTDotNetCoreTraining.ConsoleApp
            ,@BlogAuthor
            ,@BlogContent
            ,0)";
-                int result = db.Execute(query, new BlogDataModel
+                int result = db.Execute(query, new BlogDataDapperModel
                 {
                     BlogTitle = title,
                     BlogAuthor = author,
@@ -88,7 +88,7 @@ namespace KSTDotNetCoreTraining.ConsoleApp
                 ,[BlogContent]
                 ,[DeleteFlag]
             FROM [dbo].[Tbl_Blog] where BlogID=@BlogID";
-                var item = db.Query<BlogDataModel>(query, new BlogDataModel { BlogID = ID }).FirstOrDefault();
+                var item = db.Query<BlogDataDapperModel>(query, new BlogDataDapperModel { BlogID = ID }).FirstOrDefault();
                 if (item is null)
                 {
                     Console.WriteLine("No Data Found...");
@@ -112,7 +112,7 @@ namespace KSTDotNetCoreTraining.ConsoleApp
       ,[BlogAuthor] = @BlogAuthor
       ,[BlogContent] = @BlogContent
       WHERE BlogID=@BlogID ";
-                int result = db.Execute(query, new BlogDataModel
+                int result = db.Execute(query, new BlogDataDapperModel
                 {
                     BlogTitle = title,
                     BlogAuthor = author,
@@ -129,12 +129,12 @@ namespace KSTDotNetCoreTraining.ConsoleApp
             {
                 string query = @"DELETE
             FROM [dbo].[Tbl_Blog] where BlogID=@BlogID";
-                int result = db.Execute(query, new BlogDataModel
+                int result = db.Execute(query, new BlogDataDapperModel
                 {
                     BlogID = ID
                 });
 
-                var item = db.Query<BlogDataModel>(query, new BlogDataModel { BlogID = ID }).FirstOrDefault();
+                var item = db.Query<BlogDataDapperModel>(query, new BlogDataDapperModel { BlogID = ID }).FirstOrDefault();
                 Console.WriteLine(result == 1 ? "Delete Successful..." : "Delete Faileds....");
 
             }
